@@ -5,7 +5,7 @@ Take-home assignment for the **AI Automation Intern** role. An automated n8n wor
 | Link | Notes |
 |---|---|
 | **Google Sheet "Kesar Support"** (Audit Log, Tickets) | https://docs.google.com/spreadsheets/d/1i_BdTu1D_ovR93CGSonwC89Of8mXHjZNP4JxJFtPLlo/edit (View access enabled) |
-| **Walkthrough Video** | [Watch 5-Minute Walkthrough Recording](https://drive.google.com/file/d/1yOfnecw7804k8LiV5HBkO4f6UzFJGp3i/view?usp=sharing) |
+| **Walkthrough Video** | https://drive.google.com/file/d/1AOmYX7f278gVdIhjryH5bTaEK1UwpFYB/view?usp=sharing |
 | **n8n Cloud Webhook** | https://ai-project-harshit.app.n8n.cloud/webhook/kesar-support-email-v2 |
 | **GitHub Repository** | https://github.com/harshitxix/Kesar-support-copilot |
 | **Test Report** | [TEST_REPORT.md](./TEST_REPORT.md) |
