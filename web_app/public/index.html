@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kesar & Co. — Enterprise AI Support Copilot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold text-lg">
+          K
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-bold text-lg text-white tracking-tight">Kesar & Co.</span>
+            <span class="bg-amber-500/10 text-amber-400 text-xs px-2 py-0.5 rounded-full border border-amber-500/20 font-semibold uppercase tracking-wider">Enterprise Copilot</span>
+          </div>
+          <p class="text-xs text-slate-400">Autonomous D2C Ayurvedic Order Support & Guardrails</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex space-x-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-sm">
+        <button onclick="switchTab('pipeline')" id="tab-btn-pipeline" class="tab-btn px-4 py-2 rounded-lg font-medium transition-all text-white bg-amber-600 shadow-sm">
+          <i class="fa-solid fa-bolt mr-2 text-xs"></i>Live Pipeline
+        </button>
+        <button onclick="switchTab('audit')" id="tab-btn-audit" class="tab-btn px-4 py-2 rounded-lg font-medium transition-all text-slate-400 hover:text-white">
+          <i class="fa-solid fa-table-list mr-2 text-xs"></i>Audit Log (25)
+        </button>
+        <button onclick="switchTab('tickets')" id="tab-btn-tickets" class="tab-btn px-4 py-2 rounded-lg font-medium transition-all text-slate-400 hover:text-white">
+          <i class="fa-solid fa-ticket mr-2 text-xs"></i>Tickets (Deduplicated)
+        </button>
+        <button onclick="switchTab('knowledge')" id="tab-btn-knowledge" class="tab-btn px-4 py-2 rounded-lg font-medium transition-all text-slate-400 hover:text-white">
+          <i class="fa-solid fa-book-open mr-2 text-xs"></i>Knowledge & Orders
+        </button>
+        <button onclick="switchTab('metrics')" id="tab-btn-metrics" class="tab-btn px-4 py-2 rounded-lg font-medium transition-all text-slate-400 hover:text-white">
+          <i class="fa-solid fa-chart-pie mr-2 text-xs"></i>Analytics & ROI
+        </button>
+      </nav>
+
+      <!-- Sync / Export Actions -->
+      <div class="flex items-center space-x-3">
+        <a href="/outputs/audit_log.csv" download class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg border border-slate-700 flex items-center transition">
+          <i class="fa-solid fa-download mr-1.5 text-amber-400"></i>Audit CSV
+        </a>
+        <a href="/outputs/tickets.csv" download class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-lg border border-slate-700 flex items-center transition">
+          <i class="fa-solid fa-download mr-1.5 text-emerald-400"></i>Tickets CSV
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-6 space-y-6">
+
+    <!-- TAB 1: LIVE PIPELINE -->
+    <section id="tab-pipeline" class="tab-content space-y-6">
+      <!-- Quick Status Cards -->
+      <div class="grid grid-cols-4 gap-4">
+        <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
+          <div class="text-xs text-slate-400 font-medium">Test Dataset Coverage</div>
+          <div class="text-2xl font-bold text-white mt-1">25 / 25 Emails</div>
+          <div class="text-xs text-emerald-400 mt-1 flex items-center"><i class="fa-solid fa-check mr-1"></i>100% Zero-Crash Execution</div>
+        </div>
+        <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
+          <div class="text-xs text-slate-400 font-medium">Schema Compliance</div>
+          <div class="text-2xl font-bold text-emerald-400 mt-1">100%</div>
+          <div class="text-xs text-slate-400 mt-1">Validated against JSON schema</div>
+        </div>
+        <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
+          <div class="text-xs text-slate-400 font-medium">Deduplicated Tickets</div>
+          <div class="text-2xl font-bold text-amber-400 mt-1">10 Tickets</div>
+          <div class="text-xs text-slate-400 mt-1">E04 & E21 merged on KC-1052</div>
+        </div>
+        <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
+          <div class="text-xs text-slate-400 font-medium">Security & Privacy Guard</div>
+          <div class="text-2xl font-bold text-indigo-400 mt-1">Active</div>
+          <div class="text-xs text-slate-400 mt-1">E12 Injection & E07 Privacy Protected</div>
+        </div>
+      </div>
+
+      <!-- Execution Canvas -->
+      <div class="grid grid-cols-12 gap-6">
+        <!-- Left: Email Selector & Preview -->
+        <div class="col-span-5 bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="font-semibold text-white flex items-center">
+              <i class="fa-solid fa-envelope-open-text text-amber-400 mr-2"></i>Select Inbound Email
+            </h2>
+            <span class="text-xs text-slate-500 font-mono">Scenario: 20 Nov 2026</span>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Choose Test Email Scenario:</label>
+            <select id="email-select" onchange="loadSelectedEmail()" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-sm text-slate-200 focus:outline-none focus:border-amber-500">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+
+          <div class="space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800/80">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-400">From:</span>
+              <span id="preview-from" class="text-slate-200 font-medium">Ananya Rao</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-400">Email:</span>
+              <span id="preview-email" class="text-slate-400 font-mono">ananya.rao@example.com</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-400">Subject:</span>
+              <span id="preview-subject" class="text-amber-300 font-medium">Order status - KC-1041</span>
+            </div>
+            <div>
+              <span class="text-xs text-slate-400 block mb-1">Body:</span>
+              <div id="preview-body" class="bg-slate-950 p-3 rounded-lg text-xs text-slate-300 whitespace-pre-line border border-slate-800/60 max-h-48 overflow-y-auto leading-relaxed">
+              </div>
+            </div>
+          </div>
+
+          <button onclick="runCopilotOnSelected()" id="btn-run" class="w-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-semibold py-3 px-4 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-play text-xs"></i>
+            <span>Execute Copilot Flow</span>
+          </button>
+        </div>
+
+        <!-- Right: Real-time Telemetry & Output -->
+        <div class="col-span-7 space-y-4">
+          <!-- Execution Pipeline Progress Bar -->
+          <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-4">
+            <h3 class="text-sm font-semibold text-slate-200 flex items-center justify-between">
+              <span>Pipeline Stage Telemetry</span>
+              <span id="pipeline-status" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400 font-mono">Ready</span>
+            </h3>
+
+            <!-- 5 Steps -->
+            <div class="grid grid-cols-5 gap-2 text-center text-xs">
+              <div id="step-1" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900 transition">
+                <div class="font-semibold text-slate-400 mb-1">1. Ingest</div>
+                <div class="text-[10px] text-slate-500">Untrusted Input</div>
+              </div>
+              <div id="step-2" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900 transition">
+                <div class="font-semibold text-slate-400 mb-1">2. Classify</div>
+                <div class="text-[10px] text-slate-500">LLM Schema</div>
+              </div>
+              <div id="step-3" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900 transition">
+                <div class="font-semibold text-slate-400 mb-1">3. Guards</div>
+                <div class="text-[10px] text-slate-500">Security & Privacy</div>
+              </div>
+              <div id="step-4" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900 transition">
+                <div class="font-semibold text-slate-400 mb-1">4. Tools</div>
+                <div class="text-[10px] text-slate-500">Order & FAQ</div>
+              </div>
+              <div id="step-5" class="p-2.5 rounded-xl border border-slate-800 bg-slate-900 transition">
+                <div class="font-semibold text-slate-400 mb-1">5. Log & Draft</div>
+                <div class="text-[10px] text-slate-500">Sheets Sync</div>
+              </div>
+            </div>
+
+            <!-- Dynamic Diagnostic Badges -->
+            <div id="diagnostic-badges" class="flex flex-wrap gap-2 pt-2 border-t border-slate-800/80">
+              <!-- populated -->
+            </div>
+          </div>
+
+          <!-- Output Draft & Audit Details -->
+          <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-semibold text-white flex items-center">
+                <i class="fa-solid fa-reply text-emerald-400 mr-2"></i>Generated Brand Voice Draft
+              </h3>
+              <button onclick="copyDraft()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1 rounded-lg border border-slate-700 transition">
+                <i class="fa-regular fa-copy mr-1"></i>Copy Draft
+              </button>
+            </div>
+
+            <div id="draft-output" class="bg-slate-900 p-4 rounded-xl border border-slate-800 text-sm text-slate-200 whitespace-pre-line leading-relaxed min-h-[140px] font-sans">
+              Select an email on the left and click "Execute Copilot Flow" to see live generation...
+            </div>
+
+            <!-- Audit Trail Summary -->
+            <div id="audit-summary-box" class="bg-slate-900/50 p-3 rounded-xl border border-slate-800/60 text-xs text-slate-400 grid grid-cols-3 gap-2">
+              <div><span class="text-slate-500">Action:</span> <span id="audit-action" class="text-slate-200 font-medium">-</span></div>
+              <div><span class="text-slate-500">Ticket Ref:</span> <span id="audit-ticket" class="text-slate-200 font-medium">-</span></div>
+              <div><span class="text-slate-500">Needs Human:</span> <span id="audit-human" class="text-slate-200 font-medium">-</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: AUDIT LOG -->
+    <section id="tab-audit" class="tab-content hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-white">Google Sheet Audit Log (Tab 1)</h2>
+          <p class="text-xs text-slate-400">Exact replica of Google Sheets "Audit Log" tab with all 25 test emails logged.</p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <input type="text" id="audit-search" oninput="filterAuditTable()" placeholder="Search sender, order, intent..." class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 w-64 focus:outline-none focus:border-amber-500">
+          <a href="/outputs/audit_log.csv" download class="bg-amber-600 hover:bg-amber-500 text-white text-xs px-3 py-2 rounded-lg font-semibold flex items-center transition">
+            <i class="fa-solid fa-file-csv mr-1.5"></i>Export CSV
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-slate-950/60 border border-slate-800 rounded-2xl overflow-hidden">
+        <div class="overflow-x-auto max-h-[600px]">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-900 text-slate-400 uppercase tracking-wider sticky top-0 border-b border-slate-800 font-semibold">
+              <tr>
+                <th class="p-3">Email ID</th>
+                <th class="p-3">From</th>
+                <th class="p-3">Intent</th>
+                <th class="p-3">Order ID</th>
+                <th class="p-3">Lang</th>
+                <th class="p-3">Sentiment</th>
+                <th class="p-3">Conf</th>
+                <th class="p-3">Action</th>
+                <th class="p-3">Human</th>
+                <th class="p-3">Ticket</th>
+                <th class="p-3">Preview</th>
+              </tr>
+            </thead>
+            <tbody id="audit-table-body" class="divide-y divide-slate-800/60">
+              <!-- populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: TICKETS -->
+    <section id="tab-tickets" class="tab-content hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-white">Support Tickets (Tab 2 — Deduplicated)</h2>
+          <p class="text-xs text-slate-400">Created for returns/refunds & complaints. Zero duplicate rows; repeat emails append to open tickets.</p>
+        </div>
+        <a href="/outputs/tickets.csv" download class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-2 rounded-lg font-semibold flex items-center transition">
+          <i class="fa-solid fa-file-csv mr-1.5"></i>Export Tickets CSV
+        </a>
+      </div>
+
+      <div class="bg-slate-950/60 border border-slate-800 rounded-2xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-900 text-slate-400 uppercase tracking-wider border-b border-slate-800 font-semibold">
+              <tr>
+                <th class="p-3">Ticket ID</th>
+                <th class="p-3">Order ID</th>
+                <th class="p-3">Customer Email</th>
+                <th class="p-3">Linked Emails</th>
+                <th class="p-3">Intent</th>
+                <th class="p-3">Priority</th>
+                <th class="p-3">Status</th>
+                <th class="p-3">Summary</th>
+                <th class="p-3">Audit Notes</th>
+              </tr>
+            </thead>
+            <tbody id="tickets-table-body" class="divide-y divide-slate-800/60">
+              <!-- populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: KNOWLEDGE & ORDERS -->
+    <section id="tab-knowledge" class="tab-content hidden space-y-4">
+      <div class="grid grid-cols-2 gap-6">
+        <!-- Orders Database -->
+        <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-3">
+          <h3 class="font-bold text-white text-sm flex items-center justify-between">
+            <span><i class="fa-solid fa-box text-amber-400 mr-2"></i>Orders API (data/orders.json)</span>
+            <span class="text-xs text-slate-500 font-mono">15 Mock Records</span>
+          </h3>
+          <div id="orders-container" class="max-h-[550px] overflow-y-auto space-y-2 text-xs">
+            <!-- populated -->
+          </div>
+        </div>
+
+        <!-- FAQ Knowledge Base -->
+        <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-3">
+          <h3 class="font-bold text-white text-sm flex items-center justify-between">
+            <span><i class="fa-solid fa-book text-emerald-400 mr-2"></i>FAQ & Policies (data/faq.md)</span>
+            <span class="text-xs text-slate-500">Sole Source of Truth</span>
+          </h3>
+          <div id="faq-container" class="bg-slate-900 p-4 rounded-xl border border-slate-800/80 text-xs text-slate-300 max-h-[550px] overflow-y-auto whitespace-pre-wrap font-sans leading-relaxed">
+            <!-- populated -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: METRICS & ROI -->
+    <section id="tab-metrics" class="tab-content hidden space-y-6">
+      <div class="grid grid-cols-3 gap-6">
+        <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <div class="text-xs text-slate-400 font-medium">Resolution Automation Rate</div>
+          <div class="text-3xl font-extrabold text-emerald-400">68%</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            17 of 25 emails handled autonomously (order tracking, product FAQs, standard returns). 8 emails safely escalated to humans (32%).
+          </p>
+        </div>
+
+        <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <div class="text-xs text-slate-400 font-medium">Unit Economics (1,000 emails/day)</div>
+          <div class="text-3xl font-extrabold text-amber-400">₹40.50 / day</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            ~1,200 tokens/email on Gemini 1.5 Flash = $0.00048/email. Total monthly LLM cost is ~₹1,215 ($14.40) at 30k emails/month.
+          </p>
+        </div>
+
+        <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <div class="text-xs text-slate-400 font-medium">Ticket Deduplication Rate</div>
+          <div class="text-3xl font-extrabold text-indigo-400">100%</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Zero duplicate tickets created. Multi-turn emails (E04 + E21 on KC-1052) automatically merge into existing tickets with audit trail.
+          </p>
+        </div>
+      </div>
+
+      <!-- Strategy & Scaling Blueprint -->
+      <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-6 space-y-4">
+        <h3 class="font-bold text-white text-base">Production Architecture & Scaling Blueprint</h3>
+        <div class="grid grid-cols-3 gap-4 text-xs">
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+            <div class="font-bold text-amber-400 mb-2">1. Ingestion & Security</div>
+            <p class="text-slate-400 leading-relaxed">
+              Rate-limited webhook in n8n. Regex pre-extraction of order ID and strict injection sanitization prevent LLM jailbreaks from forcing unauthorized refunds.
+            </p>
+          </div>
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+            <div class="font-bold text-emerald-400 mb-2">2. Dual Model Pipeline</div>
+            <p class="text-slate-400 leading-relaxed">
+              High-speed structured output parser (temperature 0) for intent classification, followed by an agent with HTTP/Code tools grounded strictly in verified policies.
+            </p>
+          </div>
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+            <div class="font-bold text-indigo-400 mb-2">3. Enterprise Integrations</div>
+            <p class="text-slate-400 leading-relaxed">
+              Dual logging to Google Sheets with row updates on matching order IDs. Future architecture ready to bridge to Jira Service Desk and Slack escalation alerts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal for full draft viewing -->
+  <div id="draft-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <h3 id="modal-title" class="font-bold text-white text-sm">Email Preview</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="modal-content" class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-300 whitespace-pre-line leading-relaxed max-h-80 overflow-y-auto font-sans">
+      </div>
+      <div class="flex justify-end">
+        <button onclick="closeModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-4 py-2 rounded-lg font-semibold transition">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
